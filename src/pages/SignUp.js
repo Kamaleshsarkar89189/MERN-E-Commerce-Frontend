@@ -51,7 +51,7 @@ const SignUp = () => {
         headers: {
           "content-type": "application/json"
         },
-        body: JSON.stringify(data)
+        body : JSON.stringify(data)
       })
       const dataApi = await dataResponse.json()
 
@@ -64,7 +64,7 @@ const SignUp = () => {
       }
 
     }else{
-      console.log("Please check and confirm password");
+      toast.error("Please check and confirm password")
     }
 
   }
