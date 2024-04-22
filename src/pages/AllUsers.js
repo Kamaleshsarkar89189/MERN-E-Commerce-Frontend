@@ -40,7 +40,7 @@ const AllUsers = () => {
         <div className='bg-white p-4'>
             <table className='w-full userTable'>
                 <thead>
-                    <tr>
+                    <tr className='bg-blue-600 text-white'>
                         <th>Sr.</th>
                         <th>Name</th>
                         <th>Email</th>
