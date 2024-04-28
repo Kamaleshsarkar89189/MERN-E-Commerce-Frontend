@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Logo from './Logo'
 import { FiSearch } from "react-icons/fi";
 import { FaRegCircleUser } from "react-icons/fa6";
@@ -9,11 +9,13 @@ import SummaryApi from '../common';
 import { toast } from 'react-toastify';
 import { setUserDetails } from '../store/userSlice';
 import ROLE from '../common/role';
+import Context from '../context';
 
 const Header = () => {
   const user = useSelector(state => state?.user?.user)
   const dispatch = useDispatch()
-  const [ menuDisplay,setMenuDisplay ] = useState(false)
+  const [menuDisplay, setMenuDisplay] = useState(false)
+  const context = useContext(Context)
 
 
   const handleLogout = async () => {
@@ -32,6 +34,8 @@ const Header = () => {
     }
 
   }
+
+  console.log("add to cart", context);
   return (
     <header className='h-16 shadow-md bg-white fixed w-full z-40'>
       <div className='h-full conatiner mx-auto flex items-center px-4 justify-between'>
@@ -66,7 +70,7 @@ const Header = () => {
                 </div>
               )
             }
-           
+
 
             {
               menuDisplay && (
@@ -85,14 +89,18 @@ const Header = () => {
 
 
           </div>
+          {
+            user?._id && (
+              <Link to={"/cart"} className='text-2xl relative'>
+                <span><FaShoppingCart /></span>
 
-          <div className='text-2xl relative'>
-            <span><FaShoppingCart /></span>
+                <div className='bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center absolute -top-2 -right-3'>
+                  <p className='text-sm'>{context?.cartProductCount}</p>
+                </div>
+              </Link>
+            )
+          }
 
-            <div className='bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center absolute -top-2 -right-3'>
-              <p className='text-xs'>0</p>
-            </div>
-          </div>
 
 
           <div>
