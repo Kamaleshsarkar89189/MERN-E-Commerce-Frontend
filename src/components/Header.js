@@ -3,7 +3,7 @@ import Logo from './Logo'
 import { FiSearch } from "react-icons/fi";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { FaShoppingCart } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import SummaryApi from '../common';
 import { toast } from 'react-toastify';
@@ -11,11 +11,19 @@ import { setUserDetails } from '../store/userSlice';
 import ROLE from '../common/role';
 import Context from '../context';
 
+
 const Header = () => {
   const user = useSelector(state => state?.user?.user)
   const dispatch = useDispatch()
   const [menuDisplay, setMenuDisplay] = useState(false)
   const context = useContext(Context)
+  const navigate = useNavigate()
+  const searchInput = useLocation()
+  const URLSearch = new URLSearchParams(searchInput?.search)
+  const searchQuery = URLSearch.getAll("q")
+  const [search, setSearch] = useState(searchQuery)
+
+  // console.log("search location", searchInput?.search.split("=")[1]);
 
 
   const handleLogout = async () => {
@@ -28,6 +36,7 @@ const Header = () => {
     if (data.success) {
       toast.success(data.message)
       dispatch(setUserDetails(null))
+      navigate("/")
     }
     if (data.error) {
       toast.error(data.message)
@@ -35,7 +44,17 @@ const Header = () => {
 
   }
 
-  console.log("add to cart", context);
+
+  const handleSearch = (e)=>{
+    const { value } = e.target
+    setSearch(value)
+
+    if(value){
+      navigate(`/search?q=${value}`)
+    }else{
+      navigate("/search")
+    }
+  }
   return (
     <header className='h-16 shadow-md bg-white fixed w-full z-40'>
       <div className='h-full conatiner mx-auto flex items-center px-4 justify-between'>
@@ -46,7 +65,7 @@ const Header = () => {
         </div>
 
         <div className='hidden lg:flex items-center w-full justify-between max-w-sm border rounded-full focus-within:shadow pl-2'>
-          <input type='text' placeholder='Search product here...' className='w-full outline-none ' />
+          <input type='text' placeholder='Search product here...' className='w-full outline-none ' onChange={handleSearch} value={search}/>
           <div className='text-lg min-w-[50px] h-8 bg-red-600 flex items-center justify-center rounded-r-full text-white'>
             <FiSearch />
           </div>
