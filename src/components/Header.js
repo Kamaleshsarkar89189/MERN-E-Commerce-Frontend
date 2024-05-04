@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import Logo from './Logo'
+// import Logo from './Logo'
 import { FiSearch } from "react-icons/fi";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { FaShoppingCart } from "react-icons/fa";
@@ -10,6 +10,8 @@ import { toast } from 'react-toastify';
 import { setUserDetails } from '../store/userSlice';
 import ROLE from '../common/role';
 import Context from '../context';
+import { HiShoppingBag } from "react-icons/hi2";
+
 
 
 const Header = () => {
@@ -58,9 +60,11 @@ const Header = () => {
   return (
     <header className='h-16 shadow-md bg-white fixed w-full z-40'>
       <div className='h-full conatiner mx-auto flex items-center px-4 justify-between'>
-        <div className=''>
-          <Link to={"/"}>
-            <Logo w={90} h={50} />
+        <div className='flex items-center'>
+          <Link to={"/"} className='flex items-center'>
+            <HiShoppingBag className='m-5 text-4xl'/>
+            <h2 className='text-lg mb-0 text-black font-semibold  hidden lg:flex items-center md:flex'>Kamalesh Shop </h2>
+            {/* <Logo w={90} h={50} /> */}
           </Link>
         </div>
 
@@ -74,6 +78,15 @@ const Header = () => {
         <div className='flex items-center gap-7'>
 
           <div className='relative flex justify-center'>
+           {
+            user?._id && (
+                <div className='px-3 hidden lg:flex items-center md:flex  '>
+                  <div className='font-semibold text-sm pt-1'>
+                    Hi,{user?.name}
+                  </div>
+                </div>
+            )
+           }
 
             {
               user?._id && (

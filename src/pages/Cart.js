@@ -3,6 +3,8 @@ import SummaryApi from '../common'
 import Context from '../context'
 import displayINRCurrency from '../helpers/displayCurrency'
 import { MdDelete } from "react-icons/md";
+import { Link } from 'react-router-dom';
+
 
 const Cart = () => {
     const [data, setData] = useState([])
@@ -35,8 +37,7 @@ const Cart = () => {
     useEffect(() => {
         setLoading(true)
         handleLoading()
-        setLoading(false)
-        
+        setLoading(false) 
     }, [])
 
     const increaseQty = async (id, qty) => {
@@ -106,6 +107,8 @@ const Cart = () => {
 
     const totalQty = data.reduce((previousValue, currentValue) => previousValue + currentValue.quantity, 0)
     const totalPrice = data.reduce((prev,curr) => prev + ((curr?.quantity || 0) * (curr?.productId?.sellingPrice || 0)), 0)
+
+    
     return (
         <div className='container mx-auto'>
             <div className='text-center text-lg my-3'>

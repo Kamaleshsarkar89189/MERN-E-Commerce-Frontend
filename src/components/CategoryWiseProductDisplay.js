@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import fetchCategoryWiseProduct from '../helpers/fetchCategoryWiseProduct'
 import displayINRCurrency from '../helpers/displayCurrency'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import addToCart from '../helpers/addToCart'
 import Context from '../context'
 import scrollTop from '../helpers/scrollTop'
+import SummaryApi from '../common'
 
 const CategoryWiseProductDisplay = ({ category, heading }) => {
     const [data, setData] = useState([])
@@ -25,8 +26,11 @@ const CategoryWiseProductDisplay = ({ category, heading }) => {
         setData(categoryProduct?.data)
     }
 
+    
+
     useEffect(() => {
         fetchData()
+        
     }, [])
 
 

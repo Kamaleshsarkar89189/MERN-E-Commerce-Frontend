@@ -69,7 +69,7 @@ const BannerProdut = () => {
                     </div>
                 </div>
 
-               { /**deshtop and tablet version */}
+               { /**desktop and tablet version */}
                 <div className='hidden md:flex w-full h-full overflow-hidden'>
                     {
                         desktopImages.map((imageURL, index) => {
