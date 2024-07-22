@@ -105,6 +105,10 @@ const Cart = () => {
         }
     }
 
+    const handlePayment = async()=>{
+
+    }
+
     const totalQty = data.reduce((previousValue, currentValue) => previousValue + currentValue.quantity, 0)
     const totalPrice = data.reduce((prev,curr) => prev + ((curr?.quantity || 0) * (curr?.productId?.sellingPrice || 0)), 0)
 
@@ -163,28 +167,33 @@ const Cart = () => {
                 </div>
 
                 {/**summary */}
-                <div className='mt-5 lg:mt-0 w-full max-w-sm'>
-                    {
-                        loading ? (
-                            <div className='h-36 bg-slate-200 border border-slate-300 animate-pulse'>
+                {
+                    data[0] && (
+                        <div className='mt-5 lg:mt-0 w-full max-w-sm'>
+                            {
+                                loading ? (
+                                    <div className='h-36 bg-slate-200 border border-slate-300 animate-pulse'>
 
-                            </div>
-                        ) : (
-                            <div className='h-36 bg-white'>
-                                    <h2 className='text-slate-600 bg-white px-4 py-1'>PRICE DETAILS</h2>
-                                <div className='flex items-center justify-between px-4 gap-2 font-medium text-lg text-slate-600'>
-                                    <p>Quantity</p>
-                                    <p>{totalQty}</p>
-                                </div>
-                                <div className='flex items-center justify-between px-4 gap-2 font-medium text-lg text-slate-600'>
-                                    <p>Total Price</p>
-                                        <p>{displayINRCurrency(totalPrice)}</p>
-                                </div>
-                                    <button className='bg-red-500 p-2 text-white w-full hover:bg-red-700'>PLACE ORDER</button>
-                            </div>
-                        )
-                    }
-                </div>
+                                    </div>
+                                ) : (
+                                    <div className='h-36 bg-white'>
+                                        <h2 className='text-slate-600 bg-white px-4 py-1'>PRICE DETAILS</h2>
+                                        <div className='flex items-center justify-between px-4 gap-2 font-medium text-lg text-slate-600'>
+                                            <p>Quantity</p>
+                                            <p>{totalQty}</p>
+                                        </div>
+                                        <div className='flex items-center justify-between px-4 gap-2 font-medium text-lg text-slate-600'>
+                                            <p>Total Price</p>
+                                            <p>{displayINRCurrency(totalPrice)}</p>
+                                        </div>
+                                        <button className='bg-red-500 p-2 text-white w-full hover:bg-red-700' onClick={handlePayment}>PLACE ORDER</button>
+                                    </div>
+                                )
+                            }
+                        </div>
+                    )
+                }
+                
 
             </div>
         </div>
